@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
+import Sidebar from './Sidebar.js';
 
 function App() {
   return (
     <div className="App">
-      <h1>Lets build DISCORD CLONE</h1>
+      {/* Sidebar */}
+      <Sidebar/>
+
+      {/* Chat */}
     </div>
   );
 }
