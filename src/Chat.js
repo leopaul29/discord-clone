@@ -41,7 +41,7 @@ function Chat() {
       user: user,
     });
 
-    setInput("")
+    setInput("");
   };
 
   return (
@@ -50,7 +50,11 @@ function Chat() {
 
       <div className="chat__messages">
         {messages.map((message) => (
-          <Message />
+          <Message
+            timestamp={message.timestamp}
+            message={message.message}
+            user={message.user}
+          />
         ))}
       </div>
 
