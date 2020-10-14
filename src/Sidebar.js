@@ -42,13 +42,13 @@ function Sidebar() {
     return (
         <div className="sidebar">
             <div className="sidebar__top">
-                <h3>Clever Programmer</h3>
+                <h3>Discord Clone</h3>
                 <ExpandMoreIcon />
             </div>
 
             <div className="sidebar__channels">
                 <div className="sidebar__channelsHeader">
-                    <div className="sidebare__header">
+                    <div className="sidebar__header">
                         <ExpandMoreIcon />
                         <h4>Text Channels</h4>
                     </div>

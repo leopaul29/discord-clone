@@ -25,13 +25,18 @@
     color: white;
 }
 
-.sidebar_channelsHeader {
+.sidebar__channelsHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
     background-color: #2f3135;
     color: gray;
+}
+
+.sidebar__header {
+    display: flex;
+    align-items: center;
 }
 
 .sidebar__voice,
