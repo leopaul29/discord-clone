@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import GithubCorner from "react-github-corner";
 import { useDispatch, useSelector } from "react-redux";
 import './App.css';
 import Chat from './Chat';
@@ -32,8 +33,21 @@ function App() {
     });
   },[dispatch]);
 
+  const githubCornerUrl= "https://github.com/leopaul29/discord-clone"
+
   return (
     <div className="app">
+      <GithubCorner
+            href={githubCornerUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            bannerColor="#fff"
+            octoColor="gray"
+            size={80}
+            direction="right"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
       {user ? (
         <>
         <Sidebar/>
