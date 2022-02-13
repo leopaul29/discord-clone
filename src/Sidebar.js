@@ -13,28 +13,52 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { useSelector } from 'react-redux';
 import { selectUser } from './features/userSlice';
 import db, { auth } from './firebase';
+import firebase from 'firebase';
 
 function Sidebar() {
     const user = useSelector(selectUser);
     const [channels, setChannels] = useState([]);
 
     useEffect(() => {
-        db.collection('channels').onSnapshot((snapshot) =>
-            setChannels(
-                snapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    channel: doc.data(),
-                }))
-            )
+        let yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 2);
+
+        db.collection("channels")
+            .where("timestamp", "<", yesterday)
+            .get()
+            .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                doc.ref.delete();
+            });
+        });
+
+        db.collection('channels')
+            .orderBy("timestamp", "asc")
+            .onSnapshot((snapshot) => {
+                if(snapshot.docs.length == 0) {
+                    addChannel('CP-Discord');
+                    addChannel('Youtube');
+                }
+                setChannels(
+                    snapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        channel: doc.data(),
+                    }))
+                )}
         )
     }, [])
 
     const handleAddChannel = () => {
         const channelName = prompt("Enter a new channel name");
 
+        addChannel(channelName);
+    }
+
+    function addChannel(channelName) {
         if (channelName) {
             db.collection('channels').add({
                 channelName: channelName,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             })
         }
     }

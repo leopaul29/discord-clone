@@ -22,6 +22,20 @@ function Chat() {
 
   useEffect(() => {
     if (channelId) {
+      let yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 2);
+
+      db.collection("channels")
+        .doc(channelId)
+        .collection("messages")
+        .where("timestamp", "<", yesterday)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            doc.ref.delete();
+          });
+        });
+
       db.collection("channels")
         .doc(channelId)
         .collection("messages")
